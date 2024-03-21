@@ -1,0 +1,139 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  USER
+}
+
+model User {
+  id          String        @id @default(cuid())
+  studentId   String        @unique
+  name        String
+  givenName   String
+  familyName  String
+  picture     String
+  email       String        @unique
+  role        UserRole      @default(USER)
+  createdAt   DateTime      @default(now())
+  Book        Book[]
+  UserSetting UserSetting[]
+  Review      Review[]
+  Post        Post[]
+  Comment     Comment[]
+}
+
+// 使用者設定資料 UserID 
+model UserSetting {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id])
+  lineNotifyStatus Boolean  @default(false)
+  lineNotifyToken  String?
+  username         String?  @default("匿名")
+  email            String   @unique
+  phone            String?
+  lineId           String?
+  igId             String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// 文章
+model Post {
+  id        String    @id @default(cuid())
+  userId    String
+  anonymous Boolean
+  title     String
+  content   Json
+  comment   Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id])
+}
+
+// 留言
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+}
+
+// 課程評價
+
+// 教師名單
+model Teacher {
+  id        String   @id @default(cuid())
+  teacherId String   @unique
+  name      String
+  picture   String?
+  email     String?
+  // 學歷
+  education String?
+  // 專業領域
+  expertise String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Course    Course[]
+}
+
+// 課程列表
+model Course {
+  id        String   @id @default(cuid())
+  name      String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  teacherId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Review    Review[]
+}
+
+// 課程評價
+model Review {
+  id        String   @id @default(cuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  rating    Int
+  comment   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// second hand book
+
+model Book {
+  id             String   @id @default(cuid())
+  cover          String?
+  title          String
+  author         String
+  isbn           String?
+  price          Int
+  publisher      String?
+  category       String
+  deliveryMethod String
+  content        Json
+  createdAt      DateTime @default(now())
+  sold           Boolean  @default(false)
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String
+}
