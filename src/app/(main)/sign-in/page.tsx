@@ -1,14 +1,8 @@
-import { Metadata } from "next"
 import { redirect } from "next/navigation"
 
 import { getCurrentUser } from "@/lib/get-current-user"
 
 import LoginButton from "./login-button"
-
-export const metadata: Metadata = {
-  title: "登入",
-  description: "登入到德明論壇"
-}
 
 const SignInPage = async ({ searchParams }: { searchParams: { callbackUrl?: string } }) => {
   const user = await getCurrentUser()
