@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma"
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = headers()
   const header_url = decodeURIComponent(headersList.get("x-url") || "")
-  const callbackUrl = header_url.split("?")[1]
+  const callbackUrl = header_url.split("?")[1] || ""
 
   // 若 callbackUrl 含有 teacher id 和 course id，則取出 teacher id 和 course id
   if (callbackUrl.includes("teacher") && callbackUrl.includes("course")) {
