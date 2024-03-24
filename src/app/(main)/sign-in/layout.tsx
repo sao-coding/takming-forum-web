@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
     })
 
     return {
-      title: `${teacher?.name} ${course?.name}課程 - 登入`,
+      title: `${teacher?.name} - ${course?.name}課程 - 登入`,
       description: `登入以繼續訪問 ${teacher?.name}教師的${course?.name}課程`
     }
   } else if (callbackUrl.includes("teacher") && callbackUrl.split("/").length === 3) {

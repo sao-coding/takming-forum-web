@@ -25,7 +25,7 @@ export async function generateMetadata({
 
   return {
     title: `${course?.teacher.name} - ${course?.name}`,
-    description: `${course?.teacher.name}教師的課程`,
+    description: `${course?.teacher.name}教師的${course?.name}課程`,
     keywords: [course?.teacher.name || "", course?.name || ""]
   }
 }
