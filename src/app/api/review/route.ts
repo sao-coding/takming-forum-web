@@ -114,7 +114,7 @@ export const POST = async (req: NextRequest) => {
 
   if (hasCommented) {
     //   return res.status(400).json({ msg: "已經評論過" })
-    return NextResponse.json({ msg: "已綍評論過" })
+    return NextResponse.json({ msg: "已經評論過" }, { status: 400 })
   }
 
   const newComment = await prisma.review.create({
@@ -177,7 +177,7 @@ export const PATCH = async (req: NextRequest) => {
   if (!sameUser) {
     // res.status(401).json({ msg: "權限不足" })
     // return
-    return NextResponse.json({ msg: "權限不足" })
+    return NextResponse.json({ msg: "權限不足" }, { status: 401 })
   }
 
   const updatedComment = await prisma.review.update({
@@ -237,7 +237,7 @@ export const DELETE = async (req: NextRequest) => {
   if (!sameUser) {
     // res.status(401).json({ msg: "權限不足" })
     // return
-    return NextResponse.json({ msg: "權限不足" })
+    return NextResponse.json({ msg: "權限不足" }, { status: 401 })
   }
 
   await prisma.review.delete({
