@@ -60,6 +60,8 @@ export default async function RootLayout({
         <Providers session={session}>{children}</Providers>
         <Toaster
           richColors
+          closeButton
+          position='top-center'
           toastOptions={{
             classNames: {
               toast: "backdrop-blur-none"
