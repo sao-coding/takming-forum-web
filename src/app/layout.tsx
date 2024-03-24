@@ -7,6 +7,7 @@ import authOptions from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
 import Providers from "./providers"
+import UmamiAnalytics from "./UmamiAnalytics"
 
 import "./globals.css"
 
@@ -56,6 +57,9 @@ export default async function RootLayout({
 
   return (
     <html lang='zh-Hant-TW'>
+      <head>
+        <UmamiAnalytics />
+      </head>
       <body className='bg-slate-50'>
         <Providers session={session}>{children}</Providers>
         <Toaster
