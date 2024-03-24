@@ -74,7 +74,13 @@ export const GET = async (req: NextRequest) => {
     let teacherAverageRating: string | number = 0
 
     if (coursesInfo) {
-      teacherTotalRating = coursesInfo.length
+      // 若此課程 沒有評分 就不計算平均分數
+      teacherTotalRating = coursesInfo.reduce((acc, cur) => {
+        if (cur.totalRating !== 0) {
+          return Number(acc) + 1
+        }
+        return acc // Explicitly return the accumulator value
+      }, 0)
       teacherAverageRating =
         teacherTotalRating === 0
           ? 0
@@ -89,20 +95,6 @@ export const GET = async (req: NextRequest) => {
       return NextResponse.json({ msg: "找不到老師" }, { status: 404 })
     }
 
-    // res.json({
-    //   msg: "獲取老師資訊成功",
-    //   teacher: {
-    //     id: teacher?.id,
-    //     name: teacher?.name,
-    //     picture: teacher?.picture,
-    //     email: teacher?.email,
-    //     education: teacher?.education,
-    //     expertise: teacher?.expertise,
-    //     totalRating:
-    //       coursesInfo?.map((course) => course.totalRating).reduce((acc, cur) => acc + cur, 0) || 0,
-    //     averageRating: teacherAverageRating
-    //   }
-    // })
     return NextResponse.json({
       msg: "獲取老師資訊成功",
       teacher: {
