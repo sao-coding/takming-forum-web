@@ -45,6 +45,7 @@
     "is-ua-webview": "^1.1.2",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.359.0",
+    "nanoid": "^5.0.6",
     "next": "14.1.4",
     "next-auth": "^4.24.7",
     "prisma": "^5.11.0",
