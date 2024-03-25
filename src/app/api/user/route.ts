@@ -36,17 +36,40 @@ export const PUT = async (req: NextRequest) => {
   const auth = await getCurrentUser()
   if (type === "settings") {
     const { lineNotifyStatus, username, email, phone, lineId, igId } = await req.json()
-    const contact = await prisma.userSetting.update({
-      where: { userId: auth.id },
-      data: {
-        lineNotifyStatus,
-        username,
-        email,
-        phone,
-        lineId,
-        igId
+
+    // username 不能在現有的使用者中重複 但是 "匿名" 可以重複
+    if (username !== "匿名") {
+      const user = await prisma.userSetting.findFirst({
+        where: {
+          username: {
+            equals: username
+          },
+          userId: { not: auth.id }
+        },
+        select: { username: true }
+      })
+      if (user) {
+        return NextResponse.json({ msg: "使用者名稱已存在" }, { status: 400 })
       }
-    })
+    }
+
+    let contact
+
+    try {
+      contact = await prisma.userSetting.update({
+        where: { userId: auth.id },
+        data: {
+          lineNotifyStatus,
+          username,
+          email,
+          phone,
+          lineId,
+          igId
+        }
+      })
+    } catch (error) {
+      return NextResponse.json({ msg: "更新使用者聯絡方式失敗" }, { status: 400 })
+    }
     return NextResponse.json({ msg: "更新使用者聯絡方式成功", contact })
   }
 }

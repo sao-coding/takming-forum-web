@@ -90,9 +90,9 @@ const UserSettings = ({ open }: { open: boolean }) => {
       },
       body: JSON.stringify(data)
     })
-    // const result = await res.json()
+    const result = await res.json()
     if (!res.ok) {
-      toast.error("更新使用者設定失敗")
+      toast.error(`更新使用者設定失敗 ${result.msg}`)
       return
     } else {
       toast.success("更新使用者設定成功")
