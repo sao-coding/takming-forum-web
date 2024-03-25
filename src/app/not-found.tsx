@@ -7,7 +7,7 @@ export default async function NotFound() {
   //   const data = await getSiteData(domain)
   return (
     <section className='flex h-screen flex-col items-center justify-center bg-white'>
-      <div className='h-[400px] w-full bg-[url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif)] bg-center'>
+      <div className='mx-auto h-[400px] w-full max-w-4xl bg-[url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif)] bg-center'>
         <h1 className='text-center text-6xl'>404</h1>
       </div>
       <div className='-mt-12 text-center'>
