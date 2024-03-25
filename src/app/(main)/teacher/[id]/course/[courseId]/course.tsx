@@ -1,6 +1,8 @@
 "use client"
 
+import React from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 import { CourseInfo } from "@/types"
 import { IconSchool } from "@tabler/icons-react"
@@ -10,6 +12,8 @@ import Loading from "./loading"
 import RatingShow from "./rating-show"
 
 const Course = ({ courseId }: { courseId: string }) => {
+  const router = useRouter()
+
   const { data: course, isLoading } = useQuery<CourseInfo>({
     queryKey: ["course", courseId],
     queryFn: async () => {
@@ -20,6 +24,13 @@ const Course = ({ courseId }: { courseId: string }) => {
       return data.course
     }
   })
+
+  React.useEffect(() => {
+    if (course && course.id !== courseId) {
+      router.push("/not-found")
+    }
+  }, [course, courseId, router])
+
   return (
     <>
       {isLoading && <Loading />}

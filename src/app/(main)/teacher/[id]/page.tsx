@@ -1,5 +1,6 @@
 import React from "react"
 import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 
 import { site } from "@/config/site"
 import { TeacherInfo } from "@/types"
@@ -22,8 +23,11 @@ const getTeacher = async (id: string) => {
 }
 
 const TeacherInfoPage = async ({ params }: { params: { id: string } }) => {
-  console.log("teacher: ", params.id)
   const teacher: TeacherInfo = await getTeacher(params.id)
+
+  if (!teacher) {
+    redirect("/not-found")
+  }
 
   //
   // const { data: teacher, isLoading: isLoadingTeacher } = useQuery<TeacherInfoType>({
