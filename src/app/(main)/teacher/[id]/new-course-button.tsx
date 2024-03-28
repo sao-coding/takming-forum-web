@@ -33,7 +33,7 @@ const NewCourseButton = ({ teacher }: { teacher: TeacherInfo }) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ name: courseName, teacherId: teacher.id })
+      body: JSON.stringify({ name: courseName.trim(), teacherId: teacher.id })
     })
 
     const result = await res.json()
