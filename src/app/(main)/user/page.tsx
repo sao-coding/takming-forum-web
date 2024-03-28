@@ -16,6 +16,7 @@ import {
 
 import BookCount from "./book-count"
 import ReviewCount from "./review-count"
+import UserCount from "./user-count"
 
 const UserPage = async () => {
   const user = await getCurrentUser()
@@ -62,7 +63,7 @@ const UserPage = async () => {
             <h3 className='text-xl font-bold'>文章</h3>
             <div className='flex items-center gap-1'>
               <IconFilePencil />
-              <p className='font-mono text-lg'>0</p>
+              <p className='font-mono text-lg'>00</p>
             </div>
           </div>
           {/* 二手書 */}
@@ -80,7 +81,7 @@ const UserPage = async () => {
             <h3 className='text-xl font-bold'>留言</h3>
             <div className='flex items-center gap-1'>
               <IconMessage />
-              <p className='font-mono text-lg'>0</p>
+              <p className='font-mono text-lg'>00</p>
             </div>
           </div>
           {/* 評分數量 */}
@@ -88,12 +89,13 @@ const UserPage = async () => {
             <h3 className='text-xl font-bold'>評分</h3>
             <div className='flex items-center gap-1'>
               <IconMessageCircle />
-              {/* <p className='font-mono text-lg'>{reviewCount?.toString().padStart(2, "0")}</p> */}
               <React.Suspense fallback={<IconLoader2 size={20} className='animate-spin' />}>
                 <ReviewCount />
               </React.Suspense>
             </div>
           </div>
+          {/* 今天註冊人數 */}
+          <UserCount />
         </div>
         <div className='flex flex-wrap items-end gap-2'>
           <h2 className='text-2xl font-bold'>問題回報</h2>

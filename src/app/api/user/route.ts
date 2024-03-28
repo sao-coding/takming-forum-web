@@ -25,6 +25,26 @@ export const GET = async (req: NextRequest) => {
     // res.json({ status: 200, msg: "獲取使用者聯絡方式成功", contact: contactInfo })
     return NextResponse.json({ msg: "獲取使用者聯絡方式成功", contact: contactInfo })
   }
+
+  if (type === "count") {
+    //  使用者註冊人數 回傳 今天註冊人數、總註冊人數
+    const today = new Date()
+    // 00:00:00 -> 24:00:00
+    const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+    const todayEnd = new Date(todayStart)
+    todayEnd.setDate(todayEnd.getDate() + 1)
+    const total = await prisma.user.count()
+    const todayCount = await prisma.user.count({
+      where: {
+        createdAt: {
+          gte: todayStart,
+          lt: todayEnd
+        }
+      }
+    })
+
+    return NextResponse.json({ msg: "獲取使用者註冊人數成功", today: todayCount, total })
+  }
 }
 
 export const POST = async (req: NextRequest) => {
