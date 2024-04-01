@@ -1,11 +1,11 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
+import { toast } from "sonner"
 
-import { BookCard } from "@/types"
+import { BookCard, UserSettings } from "@/types"
 import { IconPhotoOff } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 
@@ -55,6 +55,24 @@ const SecondHandBookPage = () => {
     }
   })
 
+  // 獲取 user LineNotifyToken
+  const getLineNotifyToken = async () => {
+    const res = await fetch(`/api/user?type=settings`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    const { contact } = await res.json()
+    const data = contact as UserSettings
+
+    if (data.lineNotifyStatus === false || data.lineNotifyToken === false) {
+      return toast.error("請先開啟 Line Notify 通知")
+    }
+
+    router.push("/second-hand-book/editor/new")
+  }
+
   // 若超出頁數，則跳轉到第一頁
   React.useEffect(() => {
     if (page > pageContent && pageContent !== 0) {
@@ -74,12 +92,12 @@ const SecondHandBookPage = () => {
       <div className='flex items-center justify-between'>
         <h1 className='text-2xl font-bold sm:text-3xl'>二手書</h1>
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-          <Link
-            href='/second-hand-book/editor/new'
+          <button
             className='rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2 text-white'
+            onClick={getLineNotifyToken}
           >
             賣書
-          </Link>
+          </button>
         </motion.div>
       </div>
       <div className=''>
