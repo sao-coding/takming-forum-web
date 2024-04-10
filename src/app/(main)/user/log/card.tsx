@@ -7,62 +7,65 @@ import { Log } from "@/types"
 const Card = React.forwardRef<HTMLLIElement, { log: Log }>(({ log }, ref) => {
   // React.forwardRef<ref 的 type, props 的 type>((props, ref) => {})
   return (
-    <li ref={ref} className='space-y-2 border-b pb-2'>
-      <div className='flex justify-between'>
-        <Fancybox
-          options={{
-            Carousel: {
-              infinite: false
-            }
-          }}
-        >
-          <a href={log.user.picture} data-fancybox data-caption={log.user.name}>
-            <div className='relative aspect-square w-20 overflow-hidden rounded-full border'>
-              <Img
-                src={log.user.picture || "https://x"}
-                alt={log.user.name}
-                className='absolute top-0 h-full w-full rounded-xl object-cover object-top transition-transform duration-300 hover:scale-105'
-                fallback={
-                  <div className='flex h-full w-full items-center justify-center bg-gray-300'>
-                    <div className='text-5xl font-bold text-white'>
-                      {/* 只顯示姓名 */}
-                      {log.user.name.split("")[0]}
+    <li ref={ref} className='flex h-48 flex-col justify-between border-b pb-2'>
+      <div className='space-y-2'>
+        <div className='flex justify-between'>
+          <Fancybox
+            options={{
+              Carousel: {
+                infinite: false
+              }
+            }}
+          >
+            <a href={log.user.picture} data-fancybox data-caption={log.user.name}>
+              <div className='relative aspect-square w-20 overflow-hidden rounded-full border'>
+                <Img
+                  src={log.user.picture || "https://x"}
+                  alt={log.user.name}
+                  className='absolute top-0 h-full w-full rounded-xl object-cover object-top transition-transform duration-300 hover:scale-105'
+                  fallback={
+                    <div className='flex h-full w-full items-center justify-center bg-gray-300'>
+                      <div className='text-5xl font-bold text-white'>
+                        {/* 只顯示姓名 */}
+                        {log.user.name.split("")[0]}
+                      </div>
                     </div>
-                  </div>
-                }
-              />
-            </div>
-          </a>
-        </Fancybox>
-        <div className='text-end'>
-          <p>{log.user.studentId}</p>
-          <p>{log.user.name}</p>
-          <p>{log.user.UserSettings[0].username}</p>
+                  }
+                />
+              </div>
+            </a>
+          </Fancybox>
+          <div className='text-end'>
+            <p>{log.user.studentId}</p>
+            <p>{log.user.name}</p>
+            <p>{log.user.UserSettings[0].username}</p>
+          </div>
         </div>
-      </div>
-      <div className='flex justify-between font-mono'>
-        <div>
+
+        <div className='flex justify-between font-mono'>
           <p>{log.ip}</p>
-          <p className='flex'>
-            <div className='rounded-full bg-orange-300 px-1'>{log.pathname}</div>
-          </p>
-        </div>
-        <div>
-          <p className='space-x-2 text-end'>
+          <p className='space-y-2'>
             {JSON.parse(log.searchParams).length !== 0 ? (
               JSON.parse(log.searchParams).map((item: { key: string; value: string }) => {
                 return (
-                  <span key={item.key} className='rounded-full bg-orange-300 px-1'>
-                    {item.key}:{item.value}
-                  </span>
+                  <div key={item.key} className='flex justify-end'>
+                    <span className='rounded-full bg-orange-300 px-1'>
+                      {item.key}:{item.value}
+                    </span>
+                  </div>
                 )
               })
             ) : (
               <span>沒有參數</span>
             )}
           </p>
-          <p>{new Date(log.createdAt).toLocaleString()}</p>
         </div>
+      </div>
+      <div className='flex justify-between font-mono'>
+        <p className='flex'>
+          <div className='rounded-full bg-orange-300 px-1'>{log.pathname}</div>
+        </p>
+        <p>{new Date(log.createdAt).toLocaleString()}</p>
       </div>
     </li>
   )
