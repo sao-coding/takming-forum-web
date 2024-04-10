@@ -73,7 +73,7 @@ const authOptions: NextAuthOptions = {
         console.log("使用者新增成功", newUser)
         userInfo = newUser
         // 新增使用者設定
-        await prisma.userSetting.create({
+        await prisma.userSettings.create({
           data: {
             email: userInfo.email,
             user: {

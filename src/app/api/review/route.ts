@@ -38,7 +38,7 @@ export const GET = async (req: NextRequest) => {
 
     const rankWithUsername = await Promise.all(
       rank.map(async (user) => {
-        const username = await prisma.userSetting.findUnique({
+        const username = await prisma.userSettings.findUnique({
           where: {
             userId: user.userId
           },
@@ -70,7 +70,7 @@ export const GET = async (req: NextRequest) => {
     include: {
       user: {
         select: {
-          UserSetting: {
+          UserSettings: {
             select: {
               username: true
             }
@@ -85,7 +85,7 @@ export const GET = async (req: NextRequest) => {
       id: comment.id,
       courseId: comment.courseId,
       userId: comment.userId,
-      username: comment.user.UserSetting.map((setting) => setting.username)[0],
+      username: comment.user.UserSettings.map((setting) => setting.username)[0],
       rating: comment.rating,
       comment: comment.comment,
       createdAt: comment.createdAt,

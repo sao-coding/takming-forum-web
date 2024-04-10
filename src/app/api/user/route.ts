@@ -8,7 +8,7 @@ export const GET = async (req: NextRequest) => {
   const auth = await getCurrentUser()
   if (type === "settings") {
     // 若有 LineNotifyToken 則回傳 true 否則回傳 false
-    const contact = await prisma.userSetting.findUnique({
+    const contact = await prisma.userSettings.findUnique({
       where: { userId: auth.id }
     })
 
@@ -59,7 +59,7 @@ export const PUT = async (req: NextRequest) => {
 
     // username 不能在現有的使用者中重複 但是 "匿名" 可以重複
     if (username !== "匿名") {
-      const user = await prisma.userSetting.findFirst({
+      const user = await prisma.userSettings.findFirst({
         where: {
           username: {
             equals: username
@@ -76,7 +76,7 @@ export const PUT = async (req: NextRequest) => {
     let contact
 
     try {
-      contact = await prisma.userSetting.update({
+      contact = await prisma.userSettings.update({
         where: { userId: auth.id },
         data: {
           lineNotifyStatus,
