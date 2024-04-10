@@ -5,7 +5,7 @@ import { MiddlewareFactory } from "./types"
 export const withHeaders: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
     // /api/post 允許跨域請求
-
+    console.log("request", request.ip)
     const res = await next(request, _next)
     if (res) {
       res.headers.set("X-Content-Type-Options", "nosniff")
@@ -16,6 +16,8 @@ export const withHeaders: MiddlewareFactory = (next: NextMiddleware) => {
       res.headers.set("X-Download-Options", "noopen")
       res.headers.set("Set-Cookie", "Secure")
       res.headers.set("X-URL", request.url)
+      res.headers.set("X-Forwarded-For", request.headers.get("X-Forwarded-For") || "0.0.0.0")
+      res.headers.set("X-Real-IP", request.headers.get("X-Real-IP") || "0.0.0.0")
       // if (request.nextUrl.pathname.startsWith("/api/post")) {
       //   res.headers.set("Access-Control-Allow-Origin", "*")
       //   res.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS")

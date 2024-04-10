@@ -20,24 +20,25 @@ enum UserRole {
 }
 
 model User {
-  id          String        @id @default(nanoid())
-  studentId   String        @unique
-  name        String
-  givenName   String
-  familyName  String
-  picture     String
-  email       String        @unique
-  role        UserRole      @default(USER)
-  createdAt   DateTime      @default(now())
-  Book        Book[]
-  UserSetting UserSetting[]
-  Review      Review[]
-  Post        Post[]
-  Comment     Comment[]
+  id           String         @id @default(nanoid())
+  studentId    String         @unique
+  name         String
+  givenName    String
+  familyName   String
+  picture      String
+  email        String         @unique
+  role         UserRole       @default(USER)
+  createdAt    DateTime       @default(now())
+  Book         Book[]
+  UserSettings UserSettings[]
+  Review       Review[]
+  Post         Post[]
+  Comment      Comment[]
+  Log          Log[]
 }
 
 // 使用者設定資料 UserID 
-model UserSetting {
+model UserSettings {
   id               String   @id @default(nanoid())
   userId           String   @unique
   user             User     @relation(fields: [userId], references: [id])
@@ -136,4 +137,16 @@ model Book {
   sold           Boolean  @default(false)
   user           User     @relation(fields: [userId], references: [id])
   userId         String
+}
+
+// log
+// searchParams: [{key: "search", value: ""}]
+model Log {
+  id           String   @id @default(nanoid())
+  userId       String
+  ip           String
+  pathname     String
+  searchParams String
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
 }

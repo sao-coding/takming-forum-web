@@ -11,7 +11,8 @@ import {
   IconId,
   IconLoader2,
   IconMessage,
-  IconMessageCircle
+  IconMessageCircle,
+  IconNotes
 } from "@tabler/icons-react"
 
 import BookCount from "./book-count"
@@ -56,6 +57,19 @@ const UserPage = async () => {
         </div>
       </div>
       <div className='flex flex-col gap-4'>
+        {user.role !== "USER" && (
+          <>
+            <h2 className='text-2xl font-bold'>管理員功能</h2>
+            {/* 日誌中心 */}
+            <Link
+              href='/user/log'
+              className='flex items-center gap-2 rounded-2xl border p-4 text-lg font-bold hover:bg-input'
+            >
+              <IconNotes />
+              <span>日誌中心</span>
+            </Link>
+          </>
+        )}
         <h2 className='text-2xl font-bold'>數據統計</h2>
         <div className='grid grid-cols-2 gap-2'>
           {/* 文章數量 */}

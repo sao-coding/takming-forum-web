@@ -2,6 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
@@ -26,6 +27,22 @@ const Loading = () => {
 
 const Course = () => {
   const [search, setSearch] = React.useState<string>("")
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
+  React.useEffect(() => {
+    setSearch(searchParams.get("search") || "")
+  }, [searchParams])
+
+  React.useEffect(() => {
+    // 將搜尋字串加入網址列
+    // router.replace(`/course?search=${search}`)
+    if (search !== "") {
+      router.replace(`/course?search=${search}`)
+    } else {
+      router.replace(`/course`)
+    }
+  }, [search, router])
 
   const { data, isLoading } = useQuery<CourseInfo[]>({
     queryKey: ["courses", search],

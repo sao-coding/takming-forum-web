@@ -35,7 +35,12 @@ const TeacherPage = () => {
 
   React.useEffect(() => {
     // 將搜尋字串加入網址列
-    router.replace(`/teacher?search=${search}`)
+    // router.replace(`/teacher?search=${search}`)
+    if (search !== "") {
+      router.replace(`/teacher?search=${search}`)
+    } else {
+      router.replace(`/teacher`)
+    }
   }, [search, router])
 
   const { data: teachers, isLoading } = useQuery<Teacher[]>({
