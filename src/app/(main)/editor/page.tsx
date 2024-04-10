@@ -142,7 +142,7 @@ const PostEditorPage = () => {
         )}
         {/* 選擇發文身分 */}
         {/* 匿名 */}
-        <div className=''>
+        <div>
           {isDesktop ? (
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger className='flex items-center'>

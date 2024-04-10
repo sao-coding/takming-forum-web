@@ -152,7 +152,7 @@ const SecondHandBookPostsPage = async ({ params }: { params: { id: string } }) =
             </div>
             <div className='flex flex-col gap-4'>
               {/* <h2 className='text-2xl font-bold'>留言</h2>
-                <div className=''>
+                <div >
                   <Editor
                     options={{ content }}
                     onChange={(editor) => {

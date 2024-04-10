@@ -37,7 +37,7 @@ const UserPage = async () => {
             }
           />
         </div>
-        <div className=''>
+        <div>
           <h1 className='text-3xl font-bold'>{user.name}</h1>
           <div className='flex items-center gap-1'>
             <IconId />

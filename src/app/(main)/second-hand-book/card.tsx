@@ -53,7 +53,7 @@ const Card = ({ card }: { card: BookCard }) => {
           </div>
         </div>
       </Link>
-      <div className=''>
+      <div>
         {/* <h3 className='line-clamp-1 text-ellipsis text-lg font-bold'>
           高階消費者行為分析師（乙級）行為分析分析師（丙級）認證題庫
         </h3> */}
