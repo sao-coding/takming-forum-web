@@ -27,7 +27,7 @@ const Providers = ({
         .split("&")
         .map((param) => {
           const [key, value] = param.split("=")
-          return { key, value }
+          return { key, value: decodeURIComponent(value) }
         })
 
       if (searchParamsList.length === 1 && searchParamsList[0].key === "") {
