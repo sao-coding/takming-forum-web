@@ -45,7 +45,7 @@ export const GET = async (req: NextRequest) => {
   }
   try {
     // 更新使用者的 Line Notify token
-    await prisma.userSetting.update({
+    await prisma.userSettings.update({
       where: { userId: user.id },
       data: {
         lineNotifyToken: token,
@@ -69,7 +69,7 @@ export const POST = async (req: NextRequest) => {
   const user = await getCurrentUser()
   const { message } = await req.json()
 
-  const lineNotifySetting = await prisma.userSetting.findFirst({
+  const lineNotifySetting = await prisma.userSettings.findFirst({
     where: { userId: user.id }
   })
   if (!lineNotifySetting?.lineNotifyStatus || lineNotifySetting.lineNotifyToken === null) {

@@ -17,7 +17,7 @@ export const GET = async (req: NextRequest) => {
         select: {
           id: true,
           picture: true,
-          UserSetting: {
+          UserSettings: {
             select: {
               username: true
             }
