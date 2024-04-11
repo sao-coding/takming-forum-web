@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { getCurrentUser } from "@/lib/get-current-user"
 import { prisma } from "@/lib/prisma"
 import { Log } from "@prisma/client"
+import pathnameToTitle from "@/utils/pathname-to-title"
 
 export const GET = async (req: NextRequest) => {
   const auth = await getCurrentUser()
@@ -43,22 +44,23 @@ export const GET = async (req: NextRequest) => {
 export const POST = async (req: NextRequest) => {
   const res: Log = await req.json()
   const user = await getCurrentUser()
-
-  if (process.env.NODE_ENV === "production" && user.role !== "SUPER_ADMIN") {
-    await prisma.log.create({
-      data: {
-        ip: res.ip,
-        user: {
-          connect: {
-            id: user.id
-          }
-        },
-        pathname: res.pathname,
-        // 把 json [{ key, value }] 轉成 字串
-        searchParams: JSON.stringify(res.searchParams)
-      }
-    })
-  }
+  console.log("title pathname", await pathnameToTitle(res.pathname))
+  // if (process.env.NODE_ENV === "production" && user.role !== "SUPER_ADMIN") {
+  await prisma.log.create({
+    data: {
+      ip: res.ip,
+      user: {
+        connect: {
+          id: user.id
+        }
+      },
+      title: await pathnameToTitle(res.pathname),
+      pathname: res.pathname,
+      // 把 json [{ key, value }] 轉成 字串
+      searchParams: JSON.stringify(res.searchParams)
+    }
+  })
+  // }
 
   return NextResponse.json({ msg: "新增 log 成功" })
 }

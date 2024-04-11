@@ -145,6 +145,7 @@ model Log {
   id           String   @id @default(nanoid())
   userId       String
   ip           String
+  title        String?
   pathname     String
   searchParams String
   createdAt    DateTime @default(now())

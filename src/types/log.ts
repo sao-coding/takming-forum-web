@@ -2,6 +2,7 @@ export type Log = {
   id: string
   ip: string
   user: User
+  title?: string
   pathname: string
   searchParams: string
   createdAt: string

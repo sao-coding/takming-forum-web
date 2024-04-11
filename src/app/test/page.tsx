@@ -1,12 +1,13 @@
 "use client"
 
-import { toast } from "sonner"
+import pathnameToTitle from "@/utils/pathname-to-title"
 
-const TestPage = () => {
+const TestPage = async () => {
+  const title = await pathnameToTitle("/teacher")
+  console.log("title", title)
   return (
     <div className='flex h-screen items-center justify-center'>
-      <h1>Test Page</h1>
-      <button onClick={() => toast.loading("Hello World!")}>Test Button</button>
+      <h1>{title}</h1>
     </div>
   )
 }
