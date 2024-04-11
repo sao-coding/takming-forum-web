@@ -3,9 +3,11 @@ import React from "react"
 import Fancybox from "@/components/ui/fancybox"
 import Img from "@/components/ui/img"
 import { Log } from "@/types"
+import Link from "next/link"
 
 const Card = React.forwardRef<HTMLLIElement, { log: Log }>(({ log }, ref) => {
   // React.forwardRef<ref 的 type, props 的 type>((props, ref) => {})
+
   return (
     <li ref={ref} className='flex h-48 flex-col justify-between border-b pb-2'>
       <div className='space-y-2'>
@@ -62,9 +64,10 @@ const Card = React.forwardRef<HTMLLIElement, { log: Log }>(({ log }, ref) => {
         </div>
       </div>
       <div className='flex justify-between font-mono'>
-        <p className='flex'>
-          <div className='rounded-full bg-orange-300 px-1'>{log.pathname}</div>
-        </p>
+        {/* 若 title 參數為 undefined，則顯示 pathname 否則顯示 title */}
+        <Link href={log.pathname} className='rounded-md bg-orange-300 px-1'>
+          {log.title ? <>{log.title}</> : <>{log.pathname}</>}
+        </Link>
         <p>{new Date(log.createdAt).toLocaleString()}</p>
       </div>
     </li>
