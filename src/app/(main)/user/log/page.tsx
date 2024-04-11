@@ -19,7 +19,7 @@ const LogPage = () => {
     isFetchingNextPage
   } = useInfiniteQuery<Log[]>({
     queryKey: ["logs"],
-    queryFn: async ({ pageParam = 1 }) => {
+    queryFn: async ({ pageParam }) => {
       const res = await fetch(`/api/log?page=${pageParam}&perPage=${perPage}`)
       const data = await res.json()
       return data.logs
@@ -30,7 +30,7 @@ const LogPage = () => {
       //     lastPage,
       //     allPages
       //   })
-      return lastPage.length === perPage ? allPages.length : undefined
+      return lastPage.length === perPage ? allPages.length + 1 : undefined
     }
   })
 
