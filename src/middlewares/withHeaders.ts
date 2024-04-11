@@ -5,7 +5,7 @@ import { MiddlewareFactory } from "./types"
 export const withHeaders: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
     // /api/post 允許跨域請求
-    console.log("request", request.ip)
+    // console.log("request", request.ip)
     const res = await next(request, _next)
     if (res) {
       res.headers.set("X-Content-Type-Options", "nosniff")

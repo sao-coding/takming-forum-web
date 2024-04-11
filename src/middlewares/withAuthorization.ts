@@ -45,7 +45,7 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       }
     ]
 
-    const protectedRoutesPage = ["/second-hand-book/posts", "/user", "/teacher"]
+    const protectedRoutesPage = ["/book/posts", "/user", "/teacher"]
 
     const nextAuthToken = await getToken({
       req,

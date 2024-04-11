@@ -27,11 +27,11 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
-import { secondHandBookSchema } from "@/schemas/second-hand-book"
+import { bookSchema } from "@/schemas/second-hand-book"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { JSONContent } from "@tiptap/react"
 
-type EditorBook = z.infer<typeof secondHandBookSchema> & {
+type EditorBook = z.infer<typeof bookSchema> & {
   id: string
   content: JSONContent
 }
@@ -55,8 +55,8 @@ const EditForm = ({ post }: { post: EditorBook | null }) => {
 
   const router = useRouter()
 
-  const form = useForm<z.infer<typeof secondHandBookSchema>>({
-    resolver: zodResolver(secondHandBookSchema),
+  const form = useForm<z.infer<typeof bookSchema>>({
+    resolver: zodResolver(bookSchema),
     defaultValues: {
       category: undefined,
       deliveryMethod: undefined,
@@ -96,7 +96,7 @@ const EditForm = ({ post }: { post: EditorBook | null }) => {
     console.log("content", content)
   }, [content])
 
-  const onSubmit = async (data: z.infer<typeof secondHandBookSchema>) => {
+  const onSubmit = async (data: z.infer<typeof bookSchema>) => {
     // token 在 Cookie 中，所以要在 Header 中帶上
 
     if (id) {
@@ -111,7 +111,7 @@ const EditForm = ({ post }: { post: EditorBook | null }) => {
 
       if (res.ok) {
         toast.success("更新書本成功", { id: toastId })
-        router.push("/second-hand-book")
+        router.push("/book")
       } else {
         toast.error("更新書本失敗", { id: toastId })
       }
@@ -127,7 +127,7 @@ const EditForm = ({ post }: { post: EditorBook | null }) => {
 
       if (res.ok) {
         toast.success("發布書本成功", { id: toastId })
-        router.push("/second-hand-book")
+        router.push("/book")
       } else {
         toast.error("發布書本失敗", { id: toastId })
       }

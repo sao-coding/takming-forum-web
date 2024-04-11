@@ -27,7 +27,7 @@ const getPost = async (id: string) => {
   return data.book
 }
 
-const SecondHandBookPostsPage = async ({ params }: { params: { id: string } }) => {
+const BookPostsPage = async ({ params }: { params: { id: string } }) => {
   // const [bookStatus, setBookStatus] = React.useState("")
   // const router = useRouter()
 
@@ -98,7 +98,7 @@ const SecondHandBookPostsPage = async ({ params }: { params: { id: string } }) =
                   <div className='ml-auto flex items-center gap-1'>
                     {user?.studentId === post.user.studentId && (
                       <>
-                        <Link href={`/second-hand-book/editor/${post.id}`}>
+                        <Link href={`/book/editor/${post.id}`}>
                           <IconEdit className='hover:animate-tada' />
                         </Link>
                         <DeleteButton id={post.id} />
@@ -171,4 +171,4 @@ const SecondHandBookPostsPage = async ({ params }: { params: { id: string } }) =
   )
 }
 
-export default SecondHandBookPostsPage
+export default BookPostsPage

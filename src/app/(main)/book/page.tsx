@@ -32,7 +32,7 @@ const Loading = () => {
   )
 }
 
-const SecondHandBookPage = () => {
+const BookPage = () => {
   const [pageContent, setPageContent] = React.useState(0)
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -70,14 +70,14 @@ const SecondHandBookPage = () => {
       return toast.error("請先開啟 Line Notify 通知")
     }
 
-    router.push("/second-hand-book/editor/new")
+    router.push("/book/editor/new")
   }
 
   // 若超出頁數，則跳轉到第一頁
   React.useEffect(() => {
     if (page > pageContent && pageContent !== 0) {
       // setSearchParams({ page: "1" })
-      router.push("/second-hand-book?page=1")
+      router.push("/book?page=1")
     }
   }, [page, pageContent, router])
 
@@ -113,4 +113,4 @@ const SecondHandBookPage = () => {
   )
 }
 
-export default SecondHandBookPage
+export default BookPage

@@ -12,7 +12,7 @@ import { z } from "zod"
 // 價格
 // 書本簡介
 
-export const secondHandBookSchema = z.object({
+export const bookSchema = z.object({
   // 選擇書本分類
   // category: z.enum(["財金學院", "管理學院", "資訊學院", "共同科目", "其他", "贈送二手書"]),
   // 若 require error message 請選擇書本分類

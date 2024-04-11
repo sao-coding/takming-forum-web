@@ -17,8 +17,8 @@ const DeleteButton = ({ id }: { id: string }) => {
     const data = await res.json()
     if (res.ok) {
       toast.success("刪除書籍成功")
-      //   redirect("/second-hand-book")
-      router.push("/second-hand-book")
+      //   redirect("/book")
+      router.push("/book")
     } else {
       toast.error(`刪除書籍失敗: ${data.msg}`)
     }

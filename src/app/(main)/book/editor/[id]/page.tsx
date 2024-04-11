@@ -5,7 +5,7 @@ import { site } from "@/config/site"
 
 import EditForm from "./form"
 
-const getSecondHandBookPost = async (id: string) => {
+const getbookPost = async (id: string) => {
   const res = await fetch(`${site.url}/api/book?id=${id}`, {
     method: "GET",
     headers: {
@@ -17,11 +17,11 @@ const getSecondHandBookPost = async (id: string) => {
   return data.book
 }
 
-const SecondHandBookEditorPage = async ({ params }: { params: { id: string } }) => {
+const bookEditorPage = async ({ params }: { params: { id: string } }) => {
   if (params.id === "new") {
     return <EditForm post={null} />
   }
-  const post = await getSecondHandBookPost(params.id)
+  const post = await getbookPost(params.id)
 
   return (
     <div className='flex flex-col gap-4'>
@@ -31,4 +31,4 @@ const SecondHandBookEditorPage = async ({ params }: { params: { id: string } }) 
   )
 }
 
-export default SecondHandBookEditorPage
+export default bookEditorPage

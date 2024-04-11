@@ -20,7 +20,7 @@ const LineNotifyButton = ({ id }: { id: string }) => {
 
   const sendContact = async () => {
     const contact = await getContact()
-    const message = `二手書\n我想購買你的書\n${site.url}${"/second-hand-book/posts/"}${id}\n我的聯絡方式是：\nEmail:\n${contact.email}\n電話:\n${contact.phone || "未填寫"}\nLine:\n${contact.lineId || "未填寫"}\nIG:\n${contact.igId || "未填寫"}`
+    const message = `二手書\n我想購買你的書\n${site.url}${"/book/posts/"}${id}\n我的聯絡方式是：\nEmail:\n${contact.email}\n電話:\n${contact.phone || "未填寫"}\nLine:\n${contact.lineId || "未填寫"}\nIG:\n${contact.igId || "未填寫"}`
     // console.log("message", message)
     if (!contact.email && !contact.phone && !contact.lineId && !contact.igId) {
       toast.error("請先填寫聯絡方式")

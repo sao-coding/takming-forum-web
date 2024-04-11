@@ -25,7 +25,7 @@ export const NAV_LINKS: NavLinks[] = [
     text: "課程評論"
   },
   {
-    herf: "/second-hand-book",
+    herf: "/book",
     icon: IconBooks,
     text: "二手書"
   },

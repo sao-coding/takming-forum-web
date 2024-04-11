@@ -18,7 +18,7 @@ const Card = ({ card }: { card: BookCard }) => {
     >
       <Link
         className='relative aspect-[2/3] w-full overflow-hidden rounded-xl border'
-        href={`/second-hand-book/posts/${card.id}`}
+        href={`/book/posts/${card.id}`}
       >
         <Img
           // src='https://www.kadokawa.com.tw/cdn/shop/products/product_202010121633511_450x666_crop_center.jpg'
