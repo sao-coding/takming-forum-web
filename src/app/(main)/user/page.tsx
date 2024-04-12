@@ -5,6 +5,7 @@ import Img from "@/components/ui/img"
 import { getCurrentUser } from "@/lib/get-current-user"
 import {
   IconBooks,
+  IconCalendarEvent,
   IconCalendarPlus,
   IconFilePencil,
   IconHelp,
@@ -123,6 +124,16 @@ const UserPage = async () => {
         >
           <IconHelp />
           <span>問題回報表單</span>
+        </Link>
+        <h2 className='text-2xl font-bold'>專案進度</h2>
+        <Link
+          href='https://github.com/users/sao-coding/projects/5/views/1'
+          target='_blank'
+          rel='noreferrer'
+          className='flex items-center gap-2 rounded-2xl border p-4 text-lg font-bold hover:bg-input'
+        >
+          <IconCalendarEvent />
+          <span>專案進度</span>
         </Link>
       </div>
     </div>
