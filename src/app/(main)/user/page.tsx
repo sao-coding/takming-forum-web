@@ -117,7 +117,7 @@ const UserPage = async () => {
           <span>如果您在使用本網站時遇到任何問題，請透過以下方式聯絡我們。</span>
         </div>
         <Link
-          href='https://github.com/sao-coding/takming-forum/issues'
+          href='https://github.com/sao-coding/takming-forum-web/issues'
           target='_blank'
           rel='noreferrer'
           className='flex items-center gap-2 rounded-2xl border p-4 text-lg font-bold hover:bg-input'
