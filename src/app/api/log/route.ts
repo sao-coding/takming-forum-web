@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 
 import { getCurrentUser } from "@/lib/get-current-user"
 import { prisma } from "@/lib/prisma"
-import { Log } from "@prisma/client"
 import pathnameToTitle from "@/utils/pathname-to-title"
+import { Log } from "@prisma/client"
 
 export const GET = async (req: NextRequest) => {
   const auth = await getCurrentUser()

@@ -1,9 +1,9 @@
 import React from "react"
+import Link from "next/link"
 
 import Fancybox from "@/components/ui/fancybox"
 import Img from "@/components/ui/img"
 import { Log } from "@/types"
-import Link from "next/link"
 
 const Card = React.forwardRef<HTMLLIElement, { log: Log }>(({ log }, ref) => {
   // React.forwardRef<ref 的 type, props 的 type>((props, ref) => {})
