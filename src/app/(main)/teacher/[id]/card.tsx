@@ -15,7 +15,7 @@ const Card = ({ course }: { course: Course }) => {
       >
         {/* 課程名稱 */}
         <motion.h2
-          className='text-xl font-bold'
+          className='line-clamp-1 text-xl font-bold'
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
@@ -24,7 +24,7 @@ const Card = ({ course }: { course: Course }) => {
         </motion.h2>
         <div className='flex items-center gap-1'>
           <motion.span
-            className='text-muted-foreground'
+            className='w-[100px] text-right text-muted-foreground'
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.3 }}
