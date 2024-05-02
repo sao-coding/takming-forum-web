@@ -7,7 +7,6 @@ import authOptions from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
 import Providers from "./providers"
-import UmamiAnalytics from "./UmamiAnalytics"
 
 import "./globals.css"
 
