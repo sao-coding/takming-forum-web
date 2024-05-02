@@ -57,9 +57,7 @@ export default async function RootLayout({
 
   return (
     <html lang='zh-Hant-TW'>
-      <head>
-        <UmamiAnalytics />
-      </head>
+      <head>{/* <UmamiAnalytics /> */}</head>
       <body className='bg-slate-50'>
         <Providers session={session}>{children}</Providers>
         <Toaster
