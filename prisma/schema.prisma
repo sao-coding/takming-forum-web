@@ -29,6 +29,7 @@ model User {
   email        String         @unique
   role         UserRole       @default(USER)
   createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   Book         Book[]
   UserSettings UserSettings[]
   Review       Review[]

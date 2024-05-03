@@ -14,6 +14,7 @@ export type User = {
   email: string
   role: Role
   createdAt: string
+  updateAt: string
 }
 
 export type UserContact = {

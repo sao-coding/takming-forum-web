@@ -22,6 +22,7 @@ declare module "next-auth/jwt" {
     email: string
     role: UserRole
     createdAt: Date
+    updateAt: Date
   }
 }
 
@@ -43,6 +44,7 @@ declare module "next-auth" {
       email: string
       role: UserRole
       createdAt: Date
+      updateAt: Date
     } & DefaultSession["user"]
   }
   // type User = DatabaseUser

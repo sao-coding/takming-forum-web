@@ -85,7 +85,16 @@ const authOptions: NextAuthOptions = {
         })
       } else {
         console.log("使用者已存在", existUser)
-        userInfo = existUser
+        // 更新使用者登入時間
+        userInfo = await prisma.user.update({
+          where: {
+            id: existUser.id
+          },
+          data: {
+            updatedAt: new Date()
+          }
+        })
+        // userInfo = existUser
       }
       console.log("token", token)
       // console.log("userInfo", userInfo)
@@ -96,7 +105,8 @@ const authOptions: NextAuthOptions = {
         givenName: userInfo.givenName,
         familyName: userInfo.familyName,
         role: userInfo.role,
-        createdAt: userInfo.createdAt
+        createdAt: userInfo.createdAt,
+        updatedAt: userInfo.updatedAt
       }
     },
     async session({ session, token }) {
@@ -115,7 +125,8 @@ const authOptions: NextAuthOptions = {
             picture: token.picture,
             email: token.email,
             role: token.role,
-            createdAt: token.createdAt
+            createdAt: token.createdAt,
+            updateAt: token.updateAt
           }
         }
       }
