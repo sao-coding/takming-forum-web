@@ -10,8 +10,7 @@
   <a aria-label="Framework" href="https://nextjs.org">
     <img alt="" src="https://img.shields.io/badge/Next.js-000000.svg?style=for-the-badge&logo=Next.js&labelColor=000">
   </a>
-  <img alt="" src="https://img.shields.io/github/languages/top/sao-coding/takming-forum-web?style=for-the-badge&labelColor=000
-  ">
+  <img alt="" src="https://img.shields.io/github/languages/top/sao-coding/takming-forum-web?style=for-the-badge&labelColor=000">
 </p>
 
 一個可以評價課程，賣二手書的地方
