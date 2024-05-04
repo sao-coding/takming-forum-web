@@ -19,15 +19,12 @@ const RightSidebar = () => {
   const { data } = useQuery<Announcement[]>({
     queryKey: ["school-announcement"],
     queryFn: async () => {
-      const res = await fetch(
-        `https://tipx.sao-x.com/api/post?type=all&id=0&limit=10&exclude=outside`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
-          }
+      const res = await fetch(`https://tipx.sao-x.com/api/post?type=all&limit=10`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
         }
-      )
+      })
       const data = await res.json()
       return data
     }
