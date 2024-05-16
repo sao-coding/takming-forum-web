@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 
+import { useMediaQuery } from "@/hooks/use-media-query"
 import { useQuery } from "@tanstack/react-query"
 
 export type Announcement = {
@@ -16,17 +17,25 @@ export type Announcement = {
 }
 
 const RightSidebar = () => {
+  const isDesktop = useMediaQuery("(min-width: 1280px)")
   const { data } = useQuery<Announcement[]>({
-    queryKey: ["school-announcement"],
+    queryKey: ["school-announcement", isDesktop],
     queryFn: async () => {
-      const res = await fetch(`https://tipx.sao-x.com/api/post?type=all&limit=10&exclude=outside`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      const data = await res.json()
-      return data
+      if (isDesktop) {
+        const res = await fetch(
+          `https://tipx.sao-x.com/api/post?type=all&limit=10&exclude=outside`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        const data = await res.json()
+        return data
+      } else {
+        return []
+      }
     }
   })
   return (
