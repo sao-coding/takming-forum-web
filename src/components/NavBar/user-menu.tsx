@@ -43,7 +43,7 @@ const UserMenu = ({ user }: { user: Session["user"] | null }) => {
             </DropdownMenuTrigger>
             {/* 下面 距離右邊的距離 10px */}
             <DropdownMenuContent align={"end"} className='right-10'>
-              <DropdownMenuLabel>
+              <DropdownMenuLabel className='rounded-sm hover:bg-accent'>
                 <Link href='/user' className='flex items-center gap-2'>
                   <div className='flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-300'>
                     <Img
