@@ -38,7 +38,7 @@ export const GET = async (req: NextRequest) => {
         },
         {
           deptId: {
-            equals: Number(search)
+            equals: isNaN(Number(search)) ? undefined : Number(search)
           }
         }
       ]
