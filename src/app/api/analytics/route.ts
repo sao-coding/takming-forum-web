@@ -15,6 +15,13 @@ export const GET = async (req: NextRequest) => {
     updatedAt: Date
   }[] = []
 
+  const teacherList: {
+    studentId: string
+    name: string
+    createdAt: Date
+    updatedAt: Date
+  }[] = []
+
   if (auth.role !== "USER") {
     // 獲取所有用戶資訊
     const users = await prisma.user.findMany({
@@ -35,8 +42,23 @@ export const GET = async (req: NextRequest) => {
 
     //   尋找每位用戶的系所代碼 但要先檢查是否是學生 學生ID格式為 9碼 開頭為字母 其餘為數字
 
+    // const filterUsers = users.filter((user) => {
+    //   return /^[a-zA-Z]\d{8}$/.test(user.studentId)
+    // })
+
+    // 篩選出學生 其餘為老師
     const filterUsers = users.filter((user) => {
-      return /^[a-zA-Z]\d{8}$/.test(user.studentId)
+      if (/^[a-zA-Z]\d{8}$/.test(user.studentId)) {
+        return true
+      } else {
+        teacherList.push({
+          studentId: user.studentId,
+          name: user.name,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt
+        })
+        return false
+      }
     })
 
     console.log("filterUsers", filterUsers.length)
@@ -230,7 +252,8 @@ export const GET = async (req: NextRequest) => {
       groupByGrade,
       groupByDeptName,
       groupByDeptNameAndGrade,
-      userList
+      userList,
+      teacherList
     })
   } else {
     return NextResponse.json({ msg: "權限不足" })

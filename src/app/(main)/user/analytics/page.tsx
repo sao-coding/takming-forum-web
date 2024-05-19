@@ -426,13 +426,20 @@ const AnalyticsPage = () => {
       createdAt: string
       updatedAt: string
     }[]
+    teacherList: {
+      studentId: string
+      name: string
+      createdAt: string
+      updatedAt: string
+    }[]
   }
 
   const [data, setData] = React.useState<Data>({
     groupByGrade: [],
     groupByDeptName: [],
     groupByDeptNameAndGrade: [],
-    userList: []
+    userList: [],
+    teacherList: []
   })
 
   React.useEffect(() => {
@@ -517,6 +524,8 @@ const AnalyticsPage = () => {
       {data.groupByDeptNameAndGrade.map((item) => (
         <div key={item.deptName} id={item.deptName} style={{ height: 400 }}></div>
       ))}
+      <hr className='my-4' />
+      <h2 className='mb-2 text-xl font-bold'>學生列表</h2>
       <ul className='grid grid-cols-3 gap-2 md:gap-4'>
         {data.userList.map((user) => (
           <li key={user.studentId} className='rounded-xl border bg-white p-2'>
@@ -529,6 +538,23 @@ const AnalyticsPage = () => {
               <p> {new Date(user.createdAt).toLocaleString()}</p>
               <p> 更新時間 </p>
               <p>{new Date(user.updatedAt).toLocaleString()}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <hr className='my-4' />
+      <h2 className='mb-2 text-xl font-bold'>教師列表</h2>
+      <ul className='grid grid-cols-3 gap-2 md:gap-4'>
+        {data.teacherList.map((teacher) => (
+          <li key={teacher.studentId} className='rounded-xl border bg-white p-2'>
+            <p>{teacher.studentId}</p>
+            <p>{teacher.name}</p>
+            <hr className='my-1' />
+            <div className='space-y-1'>
+              <p> 創建時間 </p>
+              <p> {new Date(teacher.createdAt).toLocaleString()}</p>
+              <p> 更新時間 </p>
+              <p>{new Date(teacher.updatedAt).toLocaleString()}</p>
             </div>
           </li>
         ))}
