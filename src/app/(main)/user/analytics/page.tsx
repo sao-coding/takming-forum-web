@@ -419,12 +419,20 @@ const AnalyticsPage = () => {
         count: number
       }[]
     }[]
+    userList: {
+      studentId: string
+      deptName: string
+      name: string
+      createdAt: string
+      updatedAt: string
+    }[]
   }
 
   const [data, setData] = React.useState<Data>({
     groupByGrade: [],
     groupByDeptName: [],
-    groupByDeptNameAndGrade: []
+    groupByDeptNameAndGrade: [],
+    userList: []
   })
 
   React.useEffect(() => {
@@ -509,6 +517,22 @@ const AnalyticsPage = () => {
       {data.groupByDeptNameAndGrade.map((item) => (
         <div key={item.deptName} id={item.deptName} style={{ height: 400 }}></div>
       ))}
+      <ul className='grid grid-cols-3 gap-2 md:gap-4'>
+        {data.userList.map((user) => (
+          <li key={user.studentId} className='rounded-xl border bg-white p-2'>
+            <p>{user.studentId}</p>
+            <p>{user.deptName}</p>
+            <p>{user.name}</p>
+            <hr className='my-1' />
+            <div className='space-y-1'>
+              <p> 創建時間 </p>
+              <p> {new Date(user.createdAt).toLocaleString()}</p>
+              <p> 更新時間 </p>
+              <p>{new Date(user.updatedAt).toLocaleString()}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

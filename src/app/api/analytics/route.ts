@@ -11,6 +11,8 @@ export const GET = async (req: NextRequest) => {
     name: string
     deptId: string
     deptName: string
+    createdAt: Date
+    updatedAt: Date
   }[] = []
 
   if (auth.role !== "USER") {
@@ -18,7 +20,9 @@ export const GET = async (req: NextRequest) => {
     const users = await prisma.user.findMany({
       select: {
         studentId: true,
-        name: true
+        name: true,
+        createdAt: true,
+        updatedAt: true
       }
     })
 
@@ -40,7 +44,9 @@ export const GET = async (req: NextRequest) => {
     const usersDeptId = filterUsers.map((user) => {
       return {
         studentId: user.studentId,
-        deptId: user.studentId.slice(4, 6)
+        deptId: user.studentId.slice(4, 6),
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
       }
     })
 
@@ -142,7 +148,9 @@ export const GET = async (req: NextRequest) => {
           studentId: user.studentId,
           name: users.find((u) => u.studentId === user.studentId)?.name || "未知",
           deptId: user.deptId,
-          deptName
+          deptName,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt
         })
       })
 
@@ -212,11 +220,17 @@ export const GET = async (req: NextRequest) => {
 
     const groupByDeptNameAndGrade = await getGroupByDeptNameAndGrade()
 
+    // userList 用 updated_at desc 排序
+    userList.sort((a, b) => {
+      return a.updatedAt > b.updatedAt ? -1 : 1
+    })
+
     return NextResponse.json({
       msg: "獲取分析資料成功",
       groupByGrade,
       groupByDeptName,
-      groupByDeptNameAndGrade
+      groupByDeptNameAndGrade,
+      userList
     })
   } else {
     return NextResponse.json({ msg: "權限不足" })
