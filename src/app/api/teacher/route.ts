@@ -26,11 +26,22 @@ export const GET = async (req: NextRequest) => {
   //     picture: true
   //   }
   // })
+
+  // search 有值時，進行模糊搜尋 teacher name or teacher department
   const teachers = await prisma.teacher.findMany({
     where: {
-      name: {
-        contains: search
-      }
+      OR: [
+        {
+          name: {
+            contains: search
+          }
+        },
+        {
+          deptId: {
+            equals: Number(search)
+          }
+        }
+      ]
     },
     orderBy: {
       updatedAt: "desc"
@@ -124,6 +135,19 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json({ msg: "權限不足" }, { status: 403 })
   }
   const teacher = await req.json()
+
+  // 檢查老師 id 是否重複
+  const findTeacherId = await prisma.teacher.findUnique({
+    where: {
+      teacherId: teacher.teacherId
+    }
+  })
+
+  if (findTeacherId) {
+    // return res.status(400).json({ msg: "老師 id 重複" })
+    return NextResponse.json({ msg: "老師 id 重複" }, { status: 400 })
+  }
+
   const newTeacher = await prisma.teacher.create({
     data: teacher
   })

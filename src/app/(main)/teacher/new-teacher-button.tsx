@@ -30,6 +30,7 @@ const NewTeacherButton = () => {
     defaultValues: {
       teacherId: "",
       name: "",
+      deptId: 0,
       picture: "",
       email: "",
       education: "",
@@ -92,6 +93,19 @@ const NewTeacherButton = () => {
                   <FormLabel>教師 ID</FormLabel>
                   <FormControl>
                     <Input placeholder='老師 ID' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='deptId'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>系 ID</FormLabel>
+                  <FormControl>
+                    <Input placeholder='系 ID' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -81,20 +81,29 @@ model Comment {
 
 // 課程評價
 
+// 系所
+model Department {
+  id      Int       @id
+  name    String
+  Teacher Teacher[]
+}
+
 // 教師名單
 model Teacher {
-  id        String   @id @default(nanoid())
-  teacherId String   @unique
-  name      String
-  picture   String?
-  email     String?
+  id         String     @id @default(nanoid())
+  teacherId  String     @unique
+  name       String
+  picture    String?
+  email      String?
+  deptId     Int        @default(0)
+  department Department @relation(fields: [deptId], references: [id])
   // 學歷
-  education String?
+  education  String?
   // 專業領域
-  expertise String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Course    Course[]
+  expertise  String?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  Course     Course[]
 }
 
 // 課程列表
