@@ -13,7 +13,8 @@ import {
   IconLoader2,
   IconMessage,
   IconMessageCircle,
-  IconNotes
+  IconNotes,
+  IconReportAnalytics
 } from "@tabler/icons-react"
 
 import BookCount from "./book-count"
@@ -68,6 +69,13 @@ const UserPage = async () => {
             >
               <IconNotes />
               <span>日誌中心</span>
+            </Link>
+            <Link
+              href='/user/analytics'
+              className='flex items-center gap-2 rounded-2xl border p-4 text-lg font-bold hover:bg-input'
+            >
+              <IconReportAnalytics />
+              <span>數據統計</span>
             </Link>
           </>
         )}
