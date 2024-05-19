@@ -26,6 +26,12 @@ export const teacherSchema = z.object({
     .optional()
     .or(z.literal("")), // optional() or z.literal("")
 
+  // 系ID 必填欄位 errorMessages: required"系ID 是必填欄位" 最大長度 2 字 number
+  deptId: z
+    .number()
+    .int()
+    .min(0, { message: "系ID 是必填欄位" })
+    .max(99, { message: "系ID 格式錯誤" }),
   // 老師姓名
   name: z.string().min(1, { message: "老師姓名是必填欄位" }),
 
