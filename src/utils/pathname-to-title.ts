@@ -10,7 +10,7 @@ const pathnameToTitle = async (pathname: string) => {
         where: { id: pathname.split("/")[2] }
       })
       title = title?.name
-    } else if (pathname.split("/").length === 4) {
+    } else if (pathname.split("/").length === 5) {
       console.log("pathname4", pathname.split("/")[4])
       title = await prisma.course.findUnique({
         where: { id: pathname.split("/")[4] }

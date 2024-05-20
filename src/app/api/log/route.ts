@@ -44,7 +44,6 @@ export const GET = async (req: NextRequest) => {
 export const POST = async (req: NextRequest) => {
   const res: Log = await req.json()
   const user = await getCurrentUser()
-  console.log("title pathname", await pathnameToTitle(res.pathname))
   if (process.env.NODE_ENV === "production" && user.role !== "SUPER_ADMIN") {
     await prisma.log.create({
       data: {
