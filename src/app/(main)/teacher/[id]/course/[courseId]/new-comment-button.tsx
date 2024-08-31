@@ -31,7 +31,7 @@ const NewCommentButton = ({ courseId }: { courseId: string }) => {
     }
 
     const courseComment = document.querySelector("#course-comment") as HTMLTextAreaElement
-    if (!courseComment.value) {
+    if (!courseComment.value.trim()) {
       toast.error("評論不得為空")
       return
     }
