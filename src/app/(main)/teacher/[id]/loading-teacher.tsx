@@ -5,7 +5,7 @@ const LoadingTeacher = () => {
 
       <div className='my-1 h-5 w-1/3 animate-pulse rounded-full bg-input' />
       <div className='my-2 h-4 w-1/2 animate-pulse rounded-full bg-input' />
-      <div className='my-1 h-4 w-2/3  animate-pulse rounded-full bg-input' />
+      <div className='my-1 h-4 w-2/3 animate-pulse rounded-full bg-input' />
     </div>
   )
 }
