@@ -162,7 +162,9 @@ const BookPostsPage = async ({ params }: { params: { id: string } }) => {
                   />
                 </div> */}
               {/* 傳送聯絡方式給賣家 非賣家本人 才會顯示 */}
-              {user?.studentId !== post.user.studentId && <LineNotifyButton id={post.id} />}
+              {user?.studentId !== post.user.studentId && (
+                <LineNotifyButton userId={post.userId} postId={post.id} />
+              )}
             </div>
           </div>
         )}

@@ -66,29 +66,50 @@ export const GET = async (req: NextRequest) => {
 }
 
 export const POST = async (req: NextRequest) => {
-  const user = await getCurrentUser()
-  const { message } = await req.json()
+  const { userId, postId } = await req.json()
 
+  const user = await getCurrentUser()
+
+  // 賣家的 token
+  const sendUser = await prisma.userSettings.findFirst({
+    where: { userId }
+  })
+
+  // 買家的聯絡方式
   const lineNotifySetting = await prisma.userSettings.findFirst({
     where: { userId: user.id }
   })
-  if (!lineNotifySetting?.lineNotifyStatus || lineNotifySetting.lineNotifyToken === null) {
-    // return res.status(400).json({ msg: "Line Notify 未綁定" })
-    return NextResponse.json({ msg: "Line Notify 未綁定" }, { status: 400 })
-  }
+
+  const email = lineNotifySetting?.email || "未填寫"
+  const phone = lineNotifySetting?.phone || "未填寫"
+  const lineId = lineNotifySetting?.lineId || "未填寫"
+  const igId = lineNotifySetting?.igId || "未填寫"
+
+  const message = `二手書\n我想購買你的書\n${site.url}${"/book/posts/"}${postId}\n我的聯絡方式是：\nEmail:\n${email}\n電話:\n${phone}\nLine:\n${lineId}\nIG:\n${igId}`
 
   const response = await fetch("https://notify-api.line.me/api/notify", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `Bearer ${lineNotifySetting.lineNotifyToken}`
+      Authorization: `Bearer ${sendUser?.lineNotifyToken}`
     },
     body: new URLSearchParams({ message })
   })
   const data = await response.json()
-
+  console.log("data", data)
   if (response.ok) {
     // res.json({ msg: "傳送訊息成功" })
+    // 迴圈 lineNotifySetting 的所有聯絡方式，如果只有email就提醒使用者
+    let len = 0
+    if (lineNotifySetting?.email) len++
+    if (lineNotifySetting?.phone) len++
+    if (lineNotifySetting?.lineId) len++
+    if (lineNotifySetting?.igId) len++
+
+    if (len === 1 && lineNotifySetting?.email) {
+      return NextResponse.json({ msg: "您只填寫了 Email 聯絡方式" })
+    }
+
     return NextResponse.json({ msg: "傳送訊息成功" })
   } else {
     // res.status(400).json({ msg: `傳送訊息失敗: ${data.message}` })
