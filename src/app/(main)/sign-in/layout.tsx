@@ -55,6 +55,22 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${teacher?.name}教師 - 登入`,
       description: `登入以繼續訪問 ${teacher?.name}教師的課程`
     }
+  } else if (callbackUrl.includes("book/posts") && callbackUrl.split("/").length === 4) {
+    // 若 callbackUrl 含有 book id，則取出 book id
+    const book_id = callbackUrl.split("/")[3]
+
+    const book = await prisma.book.findUnique({
+      where: {
+        id: book_id
+      },
+      select: {
+        title: true
+      }
+    })
+    return {
+      title: `二手書 ${book?.title} - 登入`,
+      description: `登入以繼續訪問 ${book?.title}二手書籍`
+    }
   } else {
     return {
       title: "登入",
