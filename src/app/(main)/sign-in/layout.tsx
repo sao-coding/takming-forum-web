@@ -64,12 +64,24 @@ export async function generateMetadata(): Promise<Metadata> {
         id: book_id
       },
       select: {
-        title: true
+        title: true,
+        cover: true
       }
     })
     return {
       title: `二手書 ${book?.title} - 登入`,
-      description: `登入以繼續訪問 ${book?.title}二手書籍`
+      description: `登入以繼續訪問 ${book?.title}二手書籍`,
+      twitter: {
+        title: `二手書 ${book?.title} - 登入`,
+        description: `登入以繼續訪問 ${book?.title}二手書籍`,
+        card: "summary",
+        images: `${book?.cover}`
+      },
+      openGraph: {
+        title: `二手書 ${book?.title} - 登入`,
+        description: `登入以繼續訪問 ${book?.title}二手書籍`,
+        images: `${book?.cover}`
+      }
     }
   } else {
     return {
