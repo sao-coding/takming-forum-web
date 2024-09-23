@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-import clsx from "clsx"
 import { toast } from "sonner"
 
 import { sendLineNotify } from "@/app/action"
@@ -40,7 +39,7 @@ const LineNotifyButton = ({
       <div className='flex gap-2'>
         <button
           // className='group flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-500 to-green-500 px-4 py-2 text-white'
-          className={clsx(
+          className={cn(
             "group flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-500 to-green-500 px-4 py-2 text-white",
             {
               "cursor-not-allowed from-gray-700 to-gray-500": sold
