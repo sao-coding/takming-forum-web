@@ -110,7 +110,17 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json({ msg: "您只填寫了 Email 聯絡方式" })
     }
 
-    return NextResponse.json({ msg: "傳送訊息成功" })
+    // 更新聯絡次數 +1
+    const updateContactCount = await prisma.book.update({
+      where: { id: postId },
+      data: {
+        contactCount: {
+          increment: 1
+        }
+      }
+    })
+    console.log("updateContactCount", updateContactCount)
+    return NextResponse.json({ msg: "傳送訊息成功", contactCount: updateContactCount.contactCount })
   } else {
     // res.status(400).json({ msg: `傳送訊息失敗: ${data.message}` })
     return NextResponse.json({ msg: `傳送訊息失敗: ${data.message}` }, { status: 400 })

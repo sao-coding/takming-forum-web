@@ -143,8 +143,9 @@ model Book {
   category       String
   deliveryMethod String
   content        Json
-  createdAt      DateTime @default(now())
   sold           Boolean  @default(false)
+  contactCount   Int      @default(0)
+  createdAt      DateTime @default(now())
   user           User     @relation(fields: [userId], references: [id])
   userId         String
 }

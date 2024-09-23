@@ -101,7 +101,7 @@ const BookPage = () => {
         </motion.div>
       </div>
       <div>
-        <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-5'>
+        <div className='grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-5'>
           {isLoading
             ? Array.from({ length: 30 }).map((_, i) => <Loading key={i} />)
             : cards?.map((card) => <Card key={card.id} card={card} />)}
