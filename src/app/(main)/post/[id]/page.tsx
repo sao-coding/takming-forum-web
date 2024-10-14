@@ -1,9 +1,10 @@
 import Editor from "@/components/editor"
 import Img from "@/components/ui/img"
-import { Textarea } from "@/components/ui/textarea"
 import { site } from "@/config/site"
 import { Post } from "@/types"
 import { IconSpy, IconUser } from "@tabler/icons-react"
+
+import ArtalkComment from "./comment"
 
 const getPost = async (id: string) => {
   const res = await fetch(`${site.url}/api/post/?id=${id}`, {
@@ -56,8 +57,9 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
         </div>
         <Editor options={{ editable: false, content: post?.content }} />
         {/* 留言 */}
-        <h2 className='text-xl font-bold'>留言(施工中)</h2>
-        <Textarea />
+        <h2 className='text-xl font-bold'>留言</h2>
+        {/* <Textarea /> */}
+        <ArtalkComment title={post?.title} />
       </div>
     </div>
   )
