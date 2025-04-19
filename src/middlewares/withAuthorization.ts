@@ -42,14 +42,10 @@ export const withAuthorization: MiddlewareFactory = (next) => {
             value: "rank"
           }
         ]
-      },
-      {
-        method: "*",
-        path: "/api/line-bot"
       }
     ]
 
-    const protectedRoutesPage = ["/book/posts", "/user", "/teacher", "/line-bot-link"]
+    const protectedRoutesPage = ["/book/posts", "/user", "/teacher"]
 
     const nextAuthToken = await getToken({
       req,
@@ -90,12 +86,8 @@ export const withAuthorization: MiddlewareFactory = (next) => {
 
     if (protectedRoutesPage.some((route) => req.nextUrl.pathname.startsWith(route))) {
       if (!nextAuthToken) {
-        const linkToken = req.nextUrl.searchParams.get("linkToken")
         return NextResponse.redirect(
-          new URL(
-            `/sign-in?callbackUrl=${req.nextUrl.pathname}${linkToken ? `?linkToken=${linkToken}` : ""}`,
-            req.nextUrl
-          )
+          new URL(`/sign-in?callbackUrl=${req.nextUrl.pathname}`, req.nextUrl)
         )
       }
     }
