@@ -30,6 +30,8 @@ export type UserContact = {
 
 // interface UserSettings + UserContact
 export type UserSettings = UserContact & {
-  lineNotifyStatus: boolean
-  lineNotifyToken: boolean
+  // lineNotifyStatus: boolean
+  // lineNotifyToken: boolean
+  lineNonce: string
+  lineUserId: string
 }
