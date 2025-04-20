@@ -32,6 +32,6 @@ export type UserContact = {
 export type UserSettings = UserContact & {
   // lineNotifyStatus: boolean
   // lineNotifyToken: boolean
-  lineNonce: string
+  // lineNonce: string
   lineUserId: string
 }
