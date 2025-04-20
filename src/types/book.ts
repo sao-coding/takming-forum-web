@@ -1,3 +1,5 @@
+import { JSONContent } from "@tiptap/react"
+
 export type BookPost = {
   id: string
   cover: string
@@ -8,7 +10,8 @@ export type BookPost = {
   publisher: string
   category: string
   deliveryMethod: string
-  content: string
+  content: JSONContent
+  contactCount: number
   createdAt: string
   sold: boolean
   userId: string

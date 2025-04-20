@@ -3,17 +3,24 @@
 import { cookies } from "next/headers"
 
 import { site } from "@/config/site"
+import { BookPost } from "@/types"
+import { generateText } from "@tiptap/react"
+import StarterKit from "@tiptap/starter-kit"
 
-export const sendLineNotify = async (userId: string, postId: string) => {
-  const res = await fetch(`${site.url}/api/line-notify`, {
+export const sendNotify = async (post: BookPost) => {
+  const res = await fetch(`${site.url}/api/email`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Cookie: cookies().toString()
     },
     body: JSON.stringify({
-      userId,
-      postId
+      id: post.id,
+      title: post.title,
+      cover: post.cover,
+      price: post.price,
+      userId: post.userId,
+      content: generateText(post.content, [StarterKit])
     })
   })
 

@@ -3,25 +3,16 @@
 import React from "react"
 import { toast } from "sonner"
 
-import { sendLineNotify } from "@/app/action"
+import { sendNotify } from "@/app/action"
 import { cn } from "@/lib/utils"
+import { BookPost } from "@/types"
 import { IconBell } from "@tabler/icons-react"
 
-const LineNotifyButton = ({
-  userId,
-  postId,
-  sold,
-  contactCount
-}: {
-  userId: string
-  postId: string
-  sold: boolean
-  contactCount: number
-}) => {
-  const [count, setCount] = React.useState(contactCount)
+const NotifyButton = ({ post }: { post: BookPost }) => {
+  const [count, setCount] = React.useState(post.contactCount)
   const sendMassage = async () => {
     const toastId = toast.loading("傳送中...")
-    const res = await sendLineNotify(userId, postId)
+    const res = await sendNotify(post)
     if (res.msg === "傳送訊息成功") {
       toast.success(res.msg, { id: toastId })
       setCount(res.contactCount)
@@ -42,16 +33,16 @@ const LineNotifyButton = ({
           className={cn(
             "group flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-500 to-green-500 px-4 py-2 text-white",
             {
-              "cursor-not-allowed from-gray-700 to-gray-500": sold
+              "cursor-not-allowed from-gray-700 to-gray-500": post.sold
             }
           )}
           onClick={sendMassage}
-          disabled={sold}
+          disabled={post.sold}
         >
           <IconBell
             // className='group-hover:animate-tada transition-all duration-300 group-hover:fill-yellow-500 group-hover:text-yellow-500'
             className={cn(
-              !sold &&
+              !post.sold &&
                 "group-hover:animate-tada transition-all duration-300 group-hover:fill-yellow-500 group-hover:text-yellow-500"
             )}
           />
@@ -64,4 +55,4 @@ const LineNotifyButton = ({
   )
 }
 
-export default LineNotifyButton
+export default NotifyButton

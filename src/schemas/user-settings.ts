@@ -10,9 +10,6 @@ import { z } from "zod"
 // ig-id
 
 export const userSettingsSchema = z.object({
-  // 是否開啟 line notify 通知
-  lineNotifyStatus: z.boolean(),
-
   username: z.string().max(20, { message: "使用者名稱最多 20 個字" }),
 
   // email

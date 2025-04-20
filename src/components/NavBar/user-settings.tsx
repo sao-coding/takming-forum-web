@@ -3,8 +3,6 @@
 import React from "react"
 // import { useLocation } from "react-router-dom"
 import { usePathname } from "next/navigation"
-import cx from "classix"
-import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -13,16 +11,12 @@ import { Button } from "@/components/ui/button"
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Switch } from "@/components/ui/switch"
-import { site } from "@/config/site"
 import { userSettingsSchema } from "@/schemas/user-settings"
 import { UserSettings as UserSettingsType } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { IconBrandLine } from "@tabler/icons-react"
 
 const UserSettings = ({ open }: { open: boolean }) => {
   const [settings, setSettings] = React.useState({
-    lineNotifyStatus: false,
     username: "",
     email: "",
     phone: "",
@@ -45,11 +39,9 @@ const UserSettings = ({ open }: { open: boolean }) => {
       })
       const { contact } = await res.json()
       const data = contact as UserSettingsType
-      setLineNotifyToken(data.lineNotifyToken)
       if (!res.ok) {
         toast.error("獲取使用者設定失敗", { id: toastId })
         return {
-          lineNotify: false,
           email: "",
           phone: "",
           lineId: "",
@@ -58,7 +50,6 @@ const UserSettings = ({ open }: { open: boolean }) => {
       }
       toast.success("獲取使用者設定成功", { id: toastId })
       setSettings({
-        lineNotifyStatus: data.lineNotifyStatus ?? false,
         username: data.username ?? "",
         email: data.email ?? "",
         phone: data.phone ?? "",
@@ -72,7 +63,6 @@ const UserSettings = ({ open }: { open: boolean }) => {
   const form = useForm<z.infer<typeof userSettingsSchema>>({
     resolver: zodResolver(userSettingsSchema),
     defaultValues: {
-      lineNotifyStatus: false,
       username: "",
       email: "",
       phone: "",
@@ -111,53 +101,6 @@ const UserSettings = ({ open }: { open: boolean }) => {
             <h3 className='text-lg font-bold'>設定通知</h3>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSave)} className='flex flex-col gap-4'>
-                <FormField
-                  control={form.control}
-                  name='lineNotifyStatus'
-                  render={({ field }) => (
-                    <FormItem className='flex items-center justify-between'>
-                      <FormLabel>開啟 Line Notify 通知</FormLabel>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          className='data-[state=checked]:bg-orange-500'
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <div className='flex items-center gap-2'>
-                  <button
-                    // className='flex items-center gap-2 rounded-md bg-green-500 px-4 py-2 text-white'
-                    className={cx(
-                      "flex items-center gap-2 rounded-md px-4 py-2 text-white",
-                      lineNotifyToken
-                        ? "cursor-not-allowed bg-muted-foreground"
-                        : "cursor-pointer bg-green-500"
-                    )}
-                    onClick={() => {
-                      Cookies.set("callbackUrl", pathname, { expires: 1 })
-                      window.location.href = `https://notify-bot.line.me/oauth/authorize?response_type=code&scope=notify&client_id=hKU2OAXBieJxHBFPg9J3k7&redirect_uri=${site.url}/api/line-notify&state=takming_forum`
-                    }}
-                    disabled={lineNotifyToken}
-                  >
-                    <IconBrandLine />
-                    綁定 Line Notify
-                  </button>
-
-                  <div className='flex flex-1 flex-wrap items-center justify-between'>
-                    <span>綁定後可收到通知</span>
-                    <span
-                      className={cx(
-                        "rounded-md px-2 py-1 text-xs text-white",
-                        lineNotifyToken ? "bg-green-500" : "bg-red-500"
-                      )}
-                    >
-                      {lineNotifyToken ? "已綁定" : "未綁定"}
-                    </span>
-                  </div>
-                </div>
                 <FormField
                   control={form.control}
                   name='email'

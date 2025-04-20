@@ -34,7 +34,7 @@ export const GET = async (req: NextRequest) => {
         }
       }
     })
-
+    console.log(logs)
     return NextResponse.json({ msg: "獲取 log 成功", logs })
   } else {
     return NextResponse.json({ msg: "權限不足" })

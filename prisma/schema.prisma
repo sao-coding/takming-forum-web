@@ -40,18 +40,16 @@ model User {
 
 // 使用者設定資料 UserID 
 model UserSettings {
-  id               String   @id @default(nanoid())
-  userId           String   @unique
-  user             User     @relation(fields: [userId], references: [id])
-  lineNotifyStatus Boolean  @default(false)
-  lineNotifyToken  String?
-  username         String?  @default("匿名")
-  email            String   @unique
-  phone            String?
-  lineId           String?
-  igId             String?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id        String   @id @default(nanoid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  username  String?  @default("匿名")
+  email     String   @unique
+  phone     String?
+  lineId    String?
+  igId      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // 文章

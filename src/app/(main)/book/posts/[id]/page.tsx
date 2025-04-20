@@ -18,7 +18,7 @@ import {
 
 import BookStatusButton from "./book-status-button"
 import DeleteButton from "./delete-button"
-import LineNotifyButton from "./line-notify-button"
+import NotifyButton from "./notify-button"
 // import { JSONContent } from "@tiptap/react"
 
 const getPost = async (id: string) => {
@@ -49,6 +49,7 @@ const BookPostsPage = async ({ params }: { params: { id: string } }) => {
   // })
 
   const post = await getPost(params.id)
+  console.log("post", post)
 
   return (
     <div className='relative'>
@@ -162,14 +163,7 @@ const BookPostsPage = async ({ params }: { params: { id: string } }) => {
                   />
                 </div> */}
               {/* 傳送聯絡方式給賣家 非賣家本人 才會顯示 */}
-              {user?.studentId !== post.user.studentId && (
-                <LineNotifyButton
-                  userId={post.userId}
-                  postId={post.id}
-                  sold={post.sold}
-                  contactCount={post.contactCount}
-                />
-              )}
+              {user?.studentId !== post.user.studentId && <NotifyButton post={post} />}
             </div>
           </div>
         )}
