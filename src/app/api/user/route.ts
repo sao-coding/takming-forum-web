@@ -13,8 +13,6 @@ export const GET = async (req: NextRequest) => {
     })
 
     const contactInfo = {
-      lineNotifyStatus: contact?.lineNotifyStatus,
-      lineNotifyToken: contact?.lineNotifyToken ? true : false,
       username: contact?.username,
       email: contact?.email,
       phone: contact?.phone,
@@ -55,7 +53,7 @@ export const PUT = async (req: NextRequest) => {
   const type = req.nextUrl.searchParams.get("type")
   const auth = await getCurrentUser()
   if (type === "settings") {
-    const { lineNotifyStatus, username, email, phone, lineId, igId } = await req.json()
+    const { username, email, phone, lineId, igId } = await req.json()
 
     // username 不能在現有的使用者中重複 但是 "匿名" 可以重複
     if (username !== "匿名") {
@@ -79,7 +77,6 @@ export const PUT = async (req: NextRequest) => {
       contact = await prisma.userSettings.update({
         where: { userId: auth.id },
         data: {
-          lineNotifyStatus,
           username,
           email,
           phone,

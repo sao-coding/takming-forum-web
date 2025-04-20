@@ -2,7 +2,6 @@
 
 import React from "react"
 // import { useLocation } from "react-router-dom"
-import { usePathname } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -24,9 +23,6 @@ const UserSettings = ({ open }: { open: boolean }) => {
     igId: ""
   })
 
-  const [lineNotifyToken, setLineNotifyToken] = React.useState(false)
-
-  const pathname = usePathname()
   React.useEffect(() => {
     const getUserSettings = async () => {
       const toastId = toast.loading("獲取使用者設定中")

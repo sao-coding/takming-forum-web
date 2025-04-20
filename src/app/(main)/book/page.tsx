@@ -3,9 +3,8 @@
 import React from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
-import { toast } from "sonner"
 
-import { BookCard, UserSettings } from "@/types"
+import { BookCard } from "@/types"
 import { IconPhotoOff } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 
@@ -55,24 +54,6 @@ const BookPage = () => {
     }
   })
 
-  // 獲取 user LineNotifyToken
-  const getLineNotifyToken = async () => {
-    const res = await fetch(`/api/user?type=settings`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const { contact } = await res.json()
-    const data = contact as UserSettings
-
-    if (data.lineNotifyStatus === false || data.lineNotifyToken === false) {
-      return toast.error("請先開啟 Line Notify 通知")
-    }
-
-    router.push("/book/editor/new")
-  }
-
   // 若超出頁數，則跳轉到第一頁
   React.useEffect(() => {
     if (page > pageContent && pageContent !== 0) {
@@ -94,7 +75,9 @@ const BookPage = () => {
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <button
             className='rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2 text-white'
-            onClick={getLineNotifyToken}
+            onClick={() => {
+              router.push("/book/editor/new")
+            }}
           >
             賣書
           </button>
