@@ -14,7 +14,8 @@ import {
   IconMessage,
   IconMessageCircle,
   IconNotes,
-  IconReportAnalytics
+  IconReportAnalytics,
+  IconUserHexagon
 } from "@tabler/icons-react"
 
 import BookCount from "./book-count"
@@ -120,6 +121,16 @@ const UserPage = async () => {
           {/* 今天註冊人數 */}
           <UserCount />
         </div>
+        <h2 className='text-2xl font-bold'>TIPX</h2>
+        <Link
+          href='https://tipx.sao-x.com'
+          target='_blank'
+          rel='noreferrer'
+          className='flex items-center gap-2 rounded-2xl border p-4 text-lg font-bold hover:bg-input'
+        >
+          <IconUserHexagon />
+          <span>TIPX</span>
+        </Link>
         <div className='flex flex-wrap items-end gap-2'>
           <h2 className='text-2xl font-bold'>問題回報</h2>
           <span>如果您在使用本網站時遇到任何問題，請透過以下方式聯絡我們。</span>
