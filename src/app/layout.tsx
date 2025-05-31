@@ -6,6 +6,7 @@ import { site } from "@/config/site"
 import authOptions from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
+import GoogleAds from "./GoogleAds"
 import Providers from "./providers"
 import UmamiAnalytics from "./UmamiAnalytics"
 
@@ -58,6 +59,7 @@ export default async function RootLayout({
   return (
     <html lang='zh-Hant-TW'>
       <head>
+        <GoogleAds />
         <UmamiAnalytics />
       </head>
       <body className='bg-slate-50'>
